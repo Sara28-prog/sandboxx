@@ -1,0 +1,46 @@
+{
+  "name": "restricted-profile",
+  "rootfs_path": "./rootfs",
+  "working_dir": "/",
+  "resources": {
+    "cpu_quota_pct": 20,
+    "memory_limit_mb": 64,
+    "max_pids": 16,
+    "disk_read_bps": 2097152,
+    "disk_write_bps": 2097152,
+    "timeout_sec": 10
+  },
+  "namespaces": {
+    "pid": true,
+    "mount": true,
+    "uts": true,
+    "ipc": true,
+    "net": true,
+    "user": true,
+    "hostname": "sandboxx-quarantine"
+  },
+  "security": {
+    "seccomp": true,
+    "default_action": "KILL",
+    "drop_capabilities": true,
+    "no_new_privs": true,
+    "allowed_syscalls": [
+      "read", "write", "close", "fstat", "exit_group"
+    ],
+    "blocked_syscalls": [
+      "ptrace", "reboot", "mount", "umount2", "chroot", "kexec_load", "bpf"
+    ]
+  },
+  "custom_mounts": [
+    {
+      "source": "/lib",
+      "target": "/lib",
+      "is_readonly": true
+    },
+    {
+      "source": "/lib64",
+      "target": "/lib64",
+      "is_readonly": true
+    }
+  ]
+}

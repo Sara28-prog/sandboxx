@@ -1,0 +1,52 @@
+{
+  "name": "default-profile",
+  "rootfs_path": "./rootfs",
+  "working_dir": "/",
+  "resources": {
+    "cpu_quota_pct": 50,
+    "memory_limit_mb": 128,
+    "max_pids": 32,
+    "disk_read_bps": 10485760,
+    "disk_write_bps": 10485760,
+    "timeout_sec": 30
+  },
+  "namespaces": {
+    "pid": true,
+    "mount": true,
+    "uts": true,
+    "ipc": true,
+    "net": true,
+    "user": false,
+    "hostname": "sandboxx-jail"
+  },
+  "security": {
+    "seccomp": true,
+    "default_action": "KILL",
+    "drop_capabilities": true,
+    "no_new_privs": true,
+    "allowed_syscalls": [
+      "read", "write", "open", "openat", "close", "stat", "fstat",
+      "mmap", "mprotect", "munmap", "brk", "rt_sigaction", "exit_group"
+    ],
+    "blocked_syscalls": [
+      "ptrace", "reboot", "mount", "kexec_load", "bpf", "keyctl"
+    ]
+  },
+  "custom_mounts": [
+    {
+      "source": "/lib",
+      "target": "/lib",
+      "is_readonly": true
+    },
+    {
+      "source": "/lib64",
+      "target": "/lib64",
+      "is_readonly": true
+    },
+    {
+      "source": "/usr",
+      "target": "/usr",
+      "is_readonly": true
+    }
+  ]
+}

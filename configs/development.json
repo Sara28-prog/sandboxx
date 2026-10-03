@@ -1,0 +1,47 @@
+{
+  "name": "development-profile",
+  "rootfs_path": "./rootfs",
+  "working_dir": "/",
+  "resources": {
+    "cpu_quota_pct": 100,
+    "memory_limit_mb": 512,
+    "max_pids": 128,
+    "disk_read_bps": 52428800,
+    "disk_write_bps": 52428800,
+    "timeout_sec": 120
+  },
+  "namespaces": {
+    "pid": true,
+    "mount": true,
+    "uts": true,
+    "ipc": true,
+    "net": false,
+    "user": false,
+    "hostname": "sandboxx-dev"
+  },
+  "security": {
+    "seccomp": false,
+    "default_action": "ALLOW",
+    "drop_capabilities": false,
+    "no_new_privs": false,
+    "allowed_syscalls": [],
+    "blocked_syscalls": []
+  },
+  "custom_mounts": [
+    {
+      "source": "/lib",
+      "target": "/lib",
+      "is_readonly": true
+    },
+    {
+      "source": "/lib64",
+      "target": "/lib64",
+      "is_readonly": true
+    },
+    {
+      "source": "/usr",
+      "target": "/usr",
+      "is_readonly": true
+    }
+  ]
+}
